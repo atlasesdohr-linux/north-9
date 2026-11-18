@@ -105,6 +105,12 @@
 </div>
 
 <script>
+    window.firebaseLogEvent = function(event) {
+        console.log("Firebase event skipped:", event);
+    };
+</script>
+
+<script>
 (function(){
   var b = "Build/g1";
   var config = {
