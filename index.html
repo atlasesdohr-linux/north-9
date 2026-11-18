@@ -149,7 +149,26 @@
   s.src = b + ".loader.js";
   s.onerror = function(){ fail("Couldn't load the game files."); };
   s.onload = function(){
-    createUnityInstance(canvas, config, function(p){
+    createUnityInstance(canvas, config, function(p) {
+    var n = Math.round(p * 100);
+    ring.style.setProperty("--p", n);
+    pct.textContent = n + "%";
+
+    if (n >= 99) {
+        msg.textContent = "Almost there";
+    }
+}).then(function(instance) {
+    window.unityInstance = instance;
+
+    msg.textContent = "";
+    load.classList.add("hide");
+    window.focus();
+
+    console.log("Unity instance initialized successfully.");
+}).catch(function(e) {
+    fail(String(e));
+    console.error("Unity initialization failed:", e);
+});
       var n = Math.round(p * 100);
       ring.style.setProperty("--p", n);
       pct.textContent = n + "%";
