@@ -105,59 +105,5 @@
 </div>
 
 <script>
-(function(){
-  var b = "Build/g1";
-  var config = {
-    dataUrl: b + ".data.unityweb",
-    frameworkUrl: b + ".framework.js.unityweb",
-    codeUrl: b + ".wasm.unityweb",
-    streamingAssetsUrl: "StreamingAssets",
-    companyName: "v",
-    productName: "Glacier Run",
-    productVersion: "1"
-  };
-  var canvas = document.getElementById("c");
-  var load   = document.getElementById("load");
-  var ring   = document.getElementById("ring");
-  var pct    = document.getElementById("pct");
-  var msg    = document.getElementById("msg");
-  var shell  = document.getElementById("shell");
-
-  function fs(){
-    if (document.fullscreenElement) document.exitFullscreen();
-    else if (shell.requestFullscreen) shell.requestFullscreen();
-  }
-  document.getElementById("fs").onclick = fs;
-  addEventListener("keydown", function(e){
-    if (e.key === "f" || e.key === "F") fs();
-  });
-
-  function fail(text){
-    msg.className = "msg err";
-    msg.textContent = text;
-    pct.textContent = "";
-    ring.style.background = "#7f1d1d";
-  }
-
-  var s = document.createElement("script");
-  s.src = b + ".loader.js";
-  s.onerror = function(){ fail("Couldn't load the game files."); };
-  s.onload = function(){
-    createUnityInstance(canvas, config, function(p){
-      var n = Math.round(p * 100);
-      ring.style.setProperty("--p", n);
-      pct.textContent = n + "%";
-      if (n >= 99) msg.textContent = "Almost there";
-    }).then(function(){
-      msg.textContent = "";
-      load.classList.add("hide");
-      window.focus();
-    }).catch(function(e){
-      fail(String(e));
-    });
-  };
-  document.body.appendChild(s);
-})();
-</script>
 </body>
 </html>
