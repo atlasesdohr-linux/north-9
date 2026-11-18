@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/Build/(.*)", "destination": "https://games.azgame.io/game/sled-rider/25111403/Build/$1" },
-    { "source": "/(.*)", "destination": "https://gamea.azgame.io/sled-rider/$1" }
-  ]
+  "cleanUrls": true
 }
