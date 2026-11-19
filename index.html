@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#111318">
 
-    <title>Glacier Run</title>
+    <title>SRU</title>
 
     <style>
         * {
@@ -179,8 +178,8 @@
     <main class="page">
 
         <header class="topbar">
-            <div class="brand">GLACIER <span>RUN</span></div>
-            <div class="game-label">Snow Rider 3D</div>
+            <div class="brand">SR<span>U</span></div>
+            <div class="game-label">SRU</div>
         </header>
 
         <section class="game-panel">
@@ -192,14 +191,14 @@
                     <div class="loader-inner" id="pct">0%</div>
                 </div>
 
-                <div id="msg">Loading Snow Rider 3D...</div>
+                <div id="msg">Loading SRU...</div>
             </div>
 
         </section>
 
         <footer class="bottom-bar">
             <div class="status" id="status">
-                Preparing game...
+                Preparing...
             </div>
 
             <button
@@ -235,7 +234,7 @@
             progressRing.style.setProperty("--progress", percent + "%");
 
             if (percent < 100) {
-                statusText.textContent = "Loading game... " + percent + "%";
+                statusText.textContent = "Loading... " + percent + "%";
             }
         }
 
@@ -243,7 +242,7 @@
             percentageText.textContent = "100%";
             progressRing.style.setProperty("--progress", "100%");
             messageText.textContent = "Ready!";
-            statusText.textContent = "Snow Rider 3D loaded";
+            statusText.textContent = "SRU loaded";
 
             setTimeout(function() {
                 loadingScreen.classList.add("hidden");
@@ -251,8 +250,8 @@
         }
 
         function showError(error) {
-            console.error("Unity loading error:", error);
-            messageText.textContent = "Unable to load the game.";
+            console.error("Loading error:", error);
+            messageText.textContent = "Unable to load.";
             statusText.textContent = "Check the browser console for errors.";
         }
 
@@ -262,16 +261,16 @@
             }
         });
 
-        // Load the matching Unity WebGL loader.
+        // Load the Unity WebGL loader (updated paths)
         const loaderScript = document.createElement("script");
 
-        loaderScript.src = "SnowRiderBuild/UnityLoader.js";
+        loaderScript.src = "assets/loader.js";
 
         loaderScript.onload = function() {
             try {
                 gameInstance = UnityLoader.instantiate(
                     "gameContainer",
-                    "SnowRiderBuild/SnowRider3D-gd-1.json",
+                    "assets/build.json",
                     {
                         onProgress: updateProgress,
 
@@ -291,7 +290,7 @@
         };
 
         loaderScript.onerror = function() {
-            showError("UnityLoader.js could not be loaded.");
+            showError("loader.js could not be loaded.");
         };
 
         document.body.appendChild(loaderScript);
