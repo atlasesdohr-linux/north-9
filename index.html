@@ -213,6 +213,17 @@
     </main>
 
     <script>
+
+        // Block telemetry that schools can detect
+const _fetch = window.fetch;
+window.fetch = function(url, opts) {
+  const u = (typeof url === 'string' ? url : (url && url.url) || '').toString();
+  if (/unity3d\.com|gamedistribution\.com|uca\.cloud|cdp\.cloud/i.test(u)) {
+    return Promise.resolve(new Response('{}', { status: 200 }));
+  }
+  return _fetch.apply(this, arguments);
+};
+        
         // Keep the existing optional Firebase event hook.
         window.firebaseLogEvent = function(event) {
             console.log("Firebase event skipped:", event);
